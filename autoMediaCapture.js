@@ -104,8 +104,8 @@ async function do검색(검색어세트) {
 	//    The application could have the viewer land in the main content post ad.
 //	this._mediaHeartbeat.trackEvent(MediaHeartbeat.Event.AdSkip);
 	
-//	var video1 = document.getElementById("video1");
-//	Math.floor(video1.currentTime) + "/" + Math.floor(video1.duration)
+	var video1 = document.getElementById("playerArea");
+	Math.floor(video1.currentTime) + "/" + Math.floor(video1.duration)
 	
 	// 스크린샷
 	if (Math.floor(video1.currentTime) == 5) {
