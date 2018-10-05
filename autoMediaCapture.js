@@ -64,7 +64,6 @@ async function main(arg) {
 
 // 네이버 검색 수행 함수
 async function do검색(검색어세트) {
-
 	var 임시스샷2개 = [];
 
 	// 네이버창 열기
@@ -72,20 +71,64 @@ async function do검색(검색어세트) {
 	await sming.waitEvent(video, 'load');
 	await sming.wait(500);
 
-  var video1 = document.getElementById("video1");
-
-  Math.floor(video1.currentTime) + "/" + Math.floor(video1.duration)
-
-  		// 스크린샷
-  if (Math.floor(video1.currentTime) == 5) {
-    var 스샷파일명 = await sming.saveScreenshot("winNaver");		// 임시스샷 저장 1
-    임시스샷2개.push(스샷파일명);
-  } else if ((Math.floor(video1.duration) - Math.floor(video1.currentTime)) == 5) {
-    var 스샷파일명 = await sming.saveScreenshot("winNaver");		// 임시스샷 저장 2
-    임시스샷2개.push(스샷파일명);
-
+	var mediaInfo = MediaHeartbeat.createMediaObject(Configuration.VIDEO_NAME,
+							 Configuration.VIDEO_ID,
+							 Configuration.VIDEO_LENGTH,
+							 MediaHeartbeat.StreamType.VOD);
+	var videoMetadata = {CUSTOM_KEY_1 : CUSTOM_VAL_1, 
+			     CUSTOM_KEY_2 : CUSTOM_VAL_2,
+			     CUSTOM_KEY_3 : CUSTOM_VAL_3
+			    };
+	
+	// 1. Call trackSessionStart() when Play is clicked or if autoplay is used,
+	//    i.e., there's an intent to start playback.
+	this._mediaHeartbeat.trackSessionStart(mediaInfo, videoMetadata);
+	
+	// Preroll
+	var adBreakInfo = MediaHeartbeat.createAdBreakObject(ADBREAK_NAME,
+							     ADBREAK_POSITION,
+							     ADBREAK_START_TIME);
+	
+	MediaObject adInfo = MediaHeartbeat.createAdObject(AD_NAME,
+							   AD_ID,
+							   AD_POSITION,
+							   AD_LENGTH);
+	
+	//context ad data
+	var adMetadata = {CUSTOM_KEY_1 : CUSTOM_VAL_1, CUSTOM_KEY_2 : CUSTOM_VAL_2};
+	
+	// 2. Track the MediaHeartbeat.Event.AdBreakStart event when the preroll pod starts to play. 
+	//    Since this is a preroll, you must track the MediaHeartbeat.Event.AdBreakStart event 
+	//    before calling trackPlay().
+	this._mediaHeartbeat.trackEvent(MediaHeartbeat.Event.AdBreakStart, adBreakInfo);
+	
+	// 3. Track the MediaHeartbeat.Event.AdStart event when the preroll pod's ad starts to play. 
+	//    Since this is a preroll, you must track the MediaHeartbeat.Event.AdStart event before 
+	//    calling trackPlay().
+	this._mediaHeartbeat.trackEvent(MediaHeartbeat.Event.AdStart, adInfo, adMetadata);
+	
+	// 4. Call trackPlay() when the playback actually starts, i.e., when the first frame of 
+	//    the main content is rendered on the screen.
+	this._mediaHeartbeat.trackPlay();
+	
+	// 5. Track the MediaHeartbeat.Event.AdSkip event when the user intends to (and can)  
+	//    skip the ad. For example, this could be tied to a "skip ad" button onClick handler. 
+	//    The application could have the viewer land in the main content post ad.
+	this._mediaHeartbeat.trackEvent(MediaHeartbeat.Event.AdSkip);
+	
+	var video1 = document.getElementById("video1");
+	Math.floor(video1.currentTime) + "/" + Math.floor(video1.duration)
+	
+	// 스크린샷
+	if (Math.floor(video1.currentTime) == 5) {
+		var 스샷파일명 = await sming.saveScreenshot("winNaver");		// 임시스샷 저장 1
+		임시스샷2개.push(스샷파일명);
+	} else if ((Math.floor(video1.duration) - Math.floor(video1.currentTime)) == 5) {
+		var 스샷파일명 = await sming.saveScreenshot("winNaver");		// 임시스샷 저장 2
+		임시스샷2개.push(스샷파일명);
+	}
+	
 	// 네이버창 닫기
 	스트리밍창.close();
-
 	return 임시스샷2개;
 }
