@@ -71,28 +71,16 @@ async function do검색(검색어세트) {
 	await sming.waitEvent(video, 'load');
 	await sming.wait(500);
 
-	var mediaInfo = MediaHeartbeat.createMediaObject( Configuration.VIDEO_NAME,
-							 Configuration.VIDEO_ID,
-							 Configuration.VIDEO_LENGTH,
-							 MediaHeartbeat.StreamType.VOD);
-	var videoMetadata = { CUSTOM_KEY_1 : CUSTOM_VAL_1, 
-			     CUSTOM_KEY_2 : CUSTOM_VAL_2,
-			     CUSTOM_KEY_3 : CUSTOM_VAL_3
-			    };
+	var mediaInfo = MediaHeartbeat.createMediaObject( Configuration.VIDEO_NAME, Configuration.VIDEO_ID, Configuration.VIDEO_LENGTH, MediaHeartbeat.StreamType.VOD);
+	var videoMetadata = { CUSTOM_KEY_1 : CUSTOM_VAL_1, CUSTOM_KEY_2 : CUSTOM_VAL_2, CUSTOM_KEY_3 : CUSTOM_VAL_3 };
 	
 	// 1. Call trackSessionStart() when Play is clicked or if autoplay is used,
 	//    i.e., there's an intent to start playback.
 	this._mediaHeartbeat.trackSessionStart(mediaInfo, videoMetadata);
 	
 	// Preroll
-	var adBreakInfo = MediaHeartbeat.createAdBreakObject( ADBREAK_NAME,
-							     ADBREAK_POSITION,
-							     ADBREAK_START_TIME);
-	
-	MediaObject adInfo = MediaHeartbeat.createAdObject( AD_NAME,
-							   AD_ID,
-							   AD_POSITION,
-							   AD_LENGTH);
+	var adBreakInfo = MediaHeartbeat.createAdBreakObject( ADBREAK_NAME, ADBREAK_POSITION, ADBREAK_START_TIME );
+	MediaObject adInfo = MediaHeartbeat.createAdObject( AD_NAME, AD_ID, AD_POSITION, AD_LENGTH);
 	
 	//context ad data
 	var adMetadata = {CUSTOM_KEY_1 : CUSTOM_VAL_1, CUSTOM_KEY_2 : CUSTOM_VAL_2};
