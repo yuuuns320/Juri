@@ -1,9 +1,9 @@
 //  2018-10-06 제작 시작
 //  닥터마시리트님 코드 참조(https://cdn.rawgit.com/Dr-Mashirito/sming/master/naverAutoSearch.js)
-// 사용예) @JS(https://cdn.rawgit.com/Dr-Mashirito/sming/master/naverAutoSearch.js){ "keywords": [ ["홍길동", "홍길동 아빠"], ["홍길동", "홍길동 엄마"] ] }
+// 사용예) @JS(https://github.com/yuuuns320/Juri/blob/master/autoMediaCapture.js){ "스트리밍주소": [ [https://tv.naver.com/v/4199001/list/67096] ] }
 async function main(arg) {
 
-	var 검색어세트들 = arg.검색어세트들;	// 검색어세트가 여러개 담긴 배열
+	var 검색어세트들 = arg.스트리밍주소;	// 검색어세트가 여러개 담긴 배열
 
 	// jquery 로드
 	await sming.loadScript('https://code.jquery.com/jquery-latest.min.js');
@@ -21,7 +21,7 @@ async function main(arg) {
 
 		var 검색어세트 = 검색어세트들[i];	// 연관 검색어 세트. 예) ['홍길동', '홍길동 아빠']
 
-		// 검색을 수행하고 스크린샷 파일명 3개를 받아온다
+		// 검색을 수행하고 스크린샷 파일명 2개를 받아온다
 		var 임시스샷2개 = await do검색(검색어세트);
 
 		// 임시스샷으로 div 만들기
