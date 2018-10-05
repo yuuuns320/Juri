@@ -69,7 +69,7 @@ async function do검색(검색어세트) {
 	// 네이버창 열기
 	var 스트리밍창 = window.open(검색어세트, "winNaver", "width=360,height=640,resizable");
 	await sming.waitEvent(video, 'load');
-	await sming.wait(500);
+	await sming.wait(20000);
 
 //	var mediaInfo = MediaHeartbeat.createMediaObject( Configuration.VIDEO_NAME, Configuration.VIDEO_ID, Configuration.VIDEO_LENGTH, MediaHeartbeat.StreamType.VOD);
 //	var videoMetadata = { CUSTOM_KEY_1 : CUSTOM_VAL_1, CUSTOM_KEY_2 : CUSTOM_VAL_2, CUSTOM_KEY_3 : CUSTOM_VAL_3 };
